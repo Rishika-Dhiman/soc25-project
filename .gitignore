@@ -1,0 +1,30 @@
+# Ignore Visual Studio files
+.vs/
+*.csproj
+*.sln
+*.user
+
+# Ignore Unity build files and cache
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+
+# Ignore log files and OS junk
+*.log
+.DS_Store
+
+# Ignore build output
+*.apk
+*.aab
+*.exe
+
+# Ignore Unity Collaborate
+.collab/
+
+# Ignore JetBrains Rider files
+.idea/
+
+# Ignore VS Code settings (optional)
+.vscode/
