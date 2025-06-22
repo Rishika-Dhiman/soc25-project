@@ -45,7 +45,7 @@ public class PlatformSpawnerScript : MonoBehaviour
         {
             dir = Random.value < 0.5f ? -1 : 1;
 
-            float y=Random.Range(0,H);
+            float y=Random.Range(1,H);
             if (y < (R / 2) - (l / 2))
             {
                 xRangeLeft = ((R + Mathf.Sqrt((R * R) - (4 * R * y * jumpForcex) / jumpForcey)) / 2) -l/2;
@@ -62,19 +62,24 @@ public class PlatformSpawnerScript : MonoBehaviour
                 xRangeLeft = xPos - xRangeRight;
                 xRangeRight = xPos - temp;
             }
-            else if (xPos - xRangeRight <= leftLimit)
+            else if (xPos - xRangeLeft <= leftLimit)
             {
                 xRangeLeft += xPos;
                 xRangeRight += xPos;
             }
+            else if(dir == 1)
+            {
+                xRangeLeft += xPos;
+                xRangeRight = xRangeRight + xPos < rightLimit ? xRangeRight + xPos : rightLimit;
+            }
             else if (dir == -1)
             {
                 float temp = xRangeLeft;
-                xRangeLeft = xPos - xRangeRight;
+                xRangeLeft = xPos - xRangeRight > leftLimit ? xPos - xRangeRight : leftLimit;
                 xRangeRight = xPos - temp;
             }
             newxPos = Random.Range(xRangeLeft, xRangeRight);
-            newyPos = yPos + y - m-3;
+            newyPos = yPos + y - timeInterval;
 
             Debug.Log($"Spawning platform at x={newxPos}, y={newyPos}, yPos={yPos}, H={H}, y={y}, xrangeLeft={xRangeLeft}, xrangeRight={xRangeRight}, m={m}, ");
             Instantiate(platform, Vector3.right*newxPos + Vector3.up*(newyPos),transform.rotation);
