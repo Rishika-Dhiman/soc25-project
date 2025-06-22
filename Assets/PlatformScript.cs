@@ -13,6 +13,6 @@ public class PlatformScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        myRigidBody.linearVelocity=Vector2.down*downSpeed;
+        
     }
 }

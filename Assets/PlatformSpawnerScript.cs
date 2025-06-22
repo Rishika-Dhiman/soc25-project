@@ -6,12 +6,14 @@ using UnityEngine.XR;
 public class PlatformSpawnerScript : MonoBehaviour
 {
     public GameObject platform;
+    public Transform Camera;
     public float timeInterval;
     public float leftLimit, rightLimit;
     public float delta;
+    public float heightOfFirstPlatform;
     float time = 0;
     float xPos = 0;
-    float yPos = 5;
+    float yPos = -5;
     int dir;
     float jumpForcey, jumpForcex, g, R, H, l, m;
     
@@ -33,6 +35,9 @@ public class PlatformSpawnerScript : MonoBehaviour
         l = platformBox.size.x * platform.transform.localScale.x;
         m = platformBox.size.y * platform.transform.localScale.y / 2;
         Debug.Log($"H={H}, R={R}, g={g}, l={l}, m={m}, jumpForcey={jumpForcey}, jumpForcex={jumpForcex} ");
+
+        yPos += heightOfFirstPlatform;
+       
     }
 
     // Update is called once per frame
@@ -43,9 +48,14 @@ public class PlatformSpawnerScript : MonoBehaviour
 
         if (time >= timeInterval)
         {
+            transform.position = new Vector3(transform.position.x, Camera.position.y - 5, transform.position.z);
+
+            Instantiate(platform, Vector3.right * xPos + Vector3.up * yPos, transform.rotation);
+
             dir = Random.value < 0.5f ? -1 : 1;
 
-            float y=Random.Range(1,H);
+            float y = Random.Range(1.4f, H - delta);
+            
             if (y < (R / 2) - (l / 2))
             {
                 xRangeLeft = ((R + Mathf.Sqrt((R * R) - (4 * R * y * jumpForcex) / jumpForcey)) / 2) -l/2;
@@ -79,10 +89,10 @@ public class PlatformSpawnerScript : MonoBehaviour
                 xRangeRight = xPos - temp;
             }
             newxPos = Random.Range(xRangeLeft, xRangeRight);
-            newyPos = yPos + y - timeInterval;
+            newyPos = yPos + y;
 
-            Debug.Log($"Spawning platform at x={newxPos}, y={newyPos}, yPos={yPos}, H={H}, y={y}, xrangeLeft={xRangeLeft}, xrangeRight={xRangeRight}, m={m}, ");
-            Instantiate(platform, Vector3.right*newxPos + Vector3.up*(newyPos),transform.rotation);
+            Debug.Log($"Spawning platform at x={xPos}, y={yPos}, yPos={yPos}, H={H}, y={y}, xrangeLeft={xRangeLeft}, xrangeRight={xRangeRight}, m={m}, ");
+            
             xPos = newxPos;
             yPos = newyPos;
             time = 0;
