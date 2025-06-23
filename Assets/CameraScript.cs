@@ -3,6 +3,7 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     public Transform player;
+    public float downSpeed=2;
     bool once = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,7 +22,7 @@ public class CameraScript : MonoBehaviour
         }
         if (once)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 2*Time.deltaTime, transform.position.z);
+            transform.position = new Vector3(transform.position.x, transform.position.y + downSpeed*Time.deltaTime, transform.position.z);
         }
     }
 }
