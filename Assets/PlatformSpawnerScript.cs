@@ -54,7 +54,7 @@ public class PlatformSpawnerScript : MonoBehaviour
 
             dir = Random.value < 0.5f ? -1 : 1;
 
-            float y = Random.Range(1.4f, H - delta);
+            float y = Random.Range(1.5f, H - delta);
             
             if (y < (R / 2) - (l / 2))
             {
