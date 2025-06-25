@@ -770,7 +770,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 912221205}
-  u0: 8
+  mySpriteRenderer: {fileID: 912221207}
+  skin2: {fileID: -3159765797264061000, guid: 7dac752f20c62474183cc93c360e0129, type: 3}
+  skin3: {fileID: -3708878818719184633, guid: c9a90dcab5e3f234cb9adb8dcf700ffa, type: 3}
   runSpeed: 7
   jumpForcey: 10
   jumpForcex: 6
@@ -876,10 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc023b09514e694c99292c98b11d57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRigidbody: {fileID: 0}
   ground: {fileID: 2757827866105809223, guid: caced03bed4d5d44c9e32c4db935db87, type: 3}
-  startTime: 100
-  downSpeed: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

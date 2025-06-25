@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 public class MainCharacScript : MonoBehaviour
 {
     public Rigidbody2D myRigidBody;
+    public SpriteRenderer mySpriteRenderer;
+    public Sprite skin2;
+    public Sprite skin3;
     public float runSpeed;
     public float jumpForcey;
     public float jumpForcex;
@@ -20,7 +23,15 @@ public class MainCharacScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        int selectedSkin = PlayerPrefs.GetInt("SelectedSkin",0);
+        if(selectedSkin == 2)
+        {
+            mySpriteRenderer.sprite = skin2;
+        }
+        else if(selectedSkin == 3)
+        {
+            mySpriteRenderer.sprite = skin3;
+        }
     }
 
     // Update is called once per frame
@@ -54,9 +65,7 @@ public class MainCharacScript : MonoBehaviour
             transform.localScale = scale;
             horizontal = 1f;
             myRigidBody.linearVelocity = new Vector2(horizontal * runSpeed, myRigidBody.linearVelocityY);
-        }
-
-        
+        } 
     }
     void OnDrawGizmos()
     {
