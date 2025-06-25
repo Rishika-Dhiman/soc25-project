@@ -32,6 +32,7 @@ public class MainCharacScript : MonoBehaviour
         {
             mySpriteRenderer.sprite = skin3;
         }
+        PlayerPrefs.DeleteAll();
     }
 
     // Update is called once per frame

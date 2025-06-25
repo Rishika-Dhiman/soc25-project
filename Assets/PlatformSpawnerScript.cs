@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Timeline;
@@ -50,7 +51,8 @@ public class PlatformSpawnerScript : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, Camera.position.y - 5, transform.position.z);
 
-            Instantiate(platform, Vector3.right * xPos + Vector3.up * yPos, transform.rotation);
+            GameObject platformInstance = Instantiate(platform, Vector3.right * xPos + Vector3.up * yPos, transform.rotation);
+            platformInstance.GetComponent<PlatformScript>().Camera = Camera;
 
             dir = Random.value < 0.5f ? -1 : 1;
 

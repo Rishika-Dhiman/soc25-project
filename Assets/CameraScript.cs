@@ -4,7 +4,7 @@ public class CameraScript : MonoBehaviour
 {
     public Transform player;
     public float downSpeed=2;
-    bool once = false;
+    public bool once = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
