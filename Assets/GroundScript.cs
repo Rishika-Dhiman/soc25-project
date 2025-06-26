@@ -7,7 +7,7 @@ public class GroundScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Instantiate(ground, transform.position,transform.rotation);
+        Instantiate(ground, transform.position + Vector3.right*2,transform.rotation);
     }
 
     // Update is called once per frame

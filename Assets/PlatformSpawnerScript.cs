@@ -9,6 +9,7 @@ public class PlatformSpawnerScript : MonoBehaviour
     public GameObject platform;
     public Transform Camera;
     public float timeInterval;
+    public int numberOfPlatforms;
     public float leftLimit, rightLimit;
     public float delta;
     public float heightOfFirstPlatform;
@@ -17,7 +18,8 @@ public class PlatformSpawnerScript : MonoBehaviour
     float yPos = -5;
     int dir;
     float jumpForcey, jumpForcex, g, R, H, l, m;
-    
+    int n = 0;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,17 +48,19 @@ public class PlatformSpawnerScript : MonoBehaviour
     {
         float newxPos=0, newyPos=0, xRangeLeft, xRangeRight;
         float hChange = (R / 2) - (l / 2);
+        
 
-        if (time >= timeInterval)
+        if (time >= timeInterval && n < numberOfPlatforms )
         {
+            n++;
             transform.position = new Vector3(transform.position.x, Camera.position.y - 5, transform.position.z);
 
-            GameObject platformInstance = Instantiate(platform, Vector3.right * xPos + Vector3.up * yPos, transform.rotation);
-            platformInstance.GetComponent<PlatformScript>().Camera = Camera;
+            Instantiate(platform, Vector3.right * xPos + Vector3.up * yPos, transform.rotation);
+            
 
             dir = Random.value < 0.5f ? -1 : 1;
 
-            float y = Random.Range(1.5f, H - delta);
+            float y = Random.Range(1.55f, H - delta);
             
             if (y < (R / 2) - (l / 2))
             {

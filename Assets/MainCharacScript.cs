@@ -11,7 +11,8 @@ public class MainCharacScript : MonoBehaviour
     public float jumpForcey;
     public float jumpForcex;
 
-    public Transform groundCheck;
+    public Transform groundCheckLeft;
+    public Transform groundCheckRight;  
     public float checkRadius=0.4f;
     public LayerMask groundLayer;
     public Vector2 boxSize = new Vector2(0.4f, 0.05f);
@@ -39,7 +40,7 @@ public class MainCharacScript : MonoBehaviour
     void Update()
     {
         float horizontal = 0f;
-        isGrounded = Physics2D.OverlapBox(groundCheck.position+Vector3.down*downDispGroundCheck, boxSize, 0f, groundLayer);
+        isGrounded = Physics2D.OverlapBox(groundCheckLeft.position+Vector3.down*downDispGroundCheck, boxSize, 0f, groundLayer) || Physics2D.OverlapBox(groundCheckRight.position + Vector3.down * downDispGroundCheck, boxSize, 0f, groundLayer);
 
         if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded)
         {
@@ -71,7 +72,8 @@ public class MainCharacScript : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(groundCheck.position+Vector3.down * downDispGroundCheck, boxSize);
+        Gizmos.DrawWireCube(groundCheckLeft.position + Vector3.down * downDispGroundCheck, boxSize);
+        Gizmos.DrawWireCube(groundCheckRight.position + Vector3.down * downDispGroundCheck, boxSize);
     }
 }
 
