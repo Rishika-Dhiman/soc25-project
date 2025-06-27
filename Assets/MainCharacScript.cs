@@ -20,6 +20,7 @@ public class MainCharacScript : MonoBehaviour
 
     private bool isGrounded;
     public float finishTime;
+    float startTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,6 +35,7 @@ public class MainCharacScript : MonoBehaviour
             mySpriteRenderer.sprite = skin3;
         }
         PlayerPrefs.DeleteAll();
+        startTime = Time.time;
     }
 
     // Update is called once per frame
@@ -78,7 +80,7 @@ public class MainCharacScript : MonoBehaviour
 
     public float FinishTime()
     {
-        float finishTime = Time.time;
+        float finishTime = Time.time-startTime;
         return finishTime;
     }
 }
