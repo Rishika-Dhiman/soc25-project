@@ -179,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 228014196}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 0}
   leftVel: 2
   relDownVel: 1
 --- !u!212 &228014198
@@ -295,6 +296,37 @@ Transform:
   m_Children:
   - {fileID: 529416642}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &503430101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503430102}
+  m_Layer: 0
+  m_Name: Ground Check Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &503430102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503430101}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.749, y: -1.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 912221208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -447,8 +479,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 912221208}
-  downSpeed: 2
-  once: 0
 --- !u!1 &529416641
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 784241632}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 912221205}
   leftVel: 2
   relDownVel: 1
 --- !u!1 &819050961
@@ -887,6 +918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 819050962}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 0}
   leftVel: 2
   relDownVel: 1
 --- !u!212 &819050964
@@ -969,7 +1001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 837265476}
   m_Layer: 0
-  m_Name: Ground Check
+  m_Name: Ground Check Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -984,7 +1016,7 @@ Transform:
   m_GameObject: {fileID: 837265475}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: -1.01, z: 0}
+  m_LocalPosition: {x: -0.722, y: -1.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1004,8 +1036,8 @@ GameObject:
   - component: {fileID: 912221205}
   - component: {fileID: 912221209}
   m_Layer: 0
-  m_Name: Main Character
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1152,6 +1184,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 837265476}
+  - {fileID: 503430102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &912221209
@@ -1173,13 +1206,15 @@ MonoBehaviour:
   runSpeed: 7
   jumpForcey: 10
   jumpForcex: 6
-  groundCheck: {fileID: 837265476}
+  groundCheckLeft: {fileID: 837265476}
+  groundCheckRight: {fileID: 503430102}
   checkRadius: 0.32
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  boxSize: {x: -0.39, y: 0.05}
+  boxSize: {x: -0.13, y: 0.05}
   downDispGroundCheck: 0.24
+  finishTime: 0
 --- !u!1 &1222573540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 1222573541}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 0}
   leftVel: 2
   relDownVel: 1
 --- !u!212 &1222573543
@@ -1372,6 +1408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 1225491669}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 0}
   leftVel: 2
   relDownVel: 1
 --- !u!212 &1225491671
@@ -1504,6 +1541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 1260868093}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 0}
   leftVel: 2
   relDownVel: 1
 --- !u!212 &1260868095
@@ -1636,6 +1674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 1567827324}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 0}
   leftVel: 2
   relDownVel: 1
 --- !u!212 &1567827326
@@ -1768,6 +1807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 1714298261}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 0}
   leftVel: 2
   relDownVel: 1
 --- !u!212 &1714298263
@@ -1885,8 +1925,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platform: {fileID: 5101052929276050238, guid: b7c2902a95a0ad9439ecc59e27779c4e, type: 3}
+  flag: {fileID: 327564445269068433, guid: efacf61321380ad489dff0ed54301791, type: 3}
   Camera: {fileID: 519420032}
   timeInterval: 0.5
+  numberOfPlatforms: 20
   leftLimit: -9
   rightLimit: 9
   delta: 0.3
@@ -1996,6 +2038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 1957274786}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 0}
   leftVel: 2
   relDownVel: 1
 --- !u!212 &1957274788
@@ -2128,6 +2171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myRigidBody: {fileID: 2093883533}
   Camera: {fileID: 519420028}
+  playerRigidBody: {fileID: 912221205}
   leftVel: 2
   relDownVel: 1
 --- !u!212 &2093883535

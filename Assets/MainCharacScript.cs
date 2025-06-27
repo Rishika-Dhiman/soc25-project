@@ -19,7 +19,7 @@ public class MainCharacScript : MonoBehaviour
     public float downDispGroundCheck;
 
     private bool isGrounded;
-
+    public float finishTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -74,6 +74,12 @@ public class MainCharacScript : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(groundCheckLeft.position + Vector3.down * downDispGroundCheck, boxSize);
         Gizmos.DrawWireCube(groundCheckRight.position + Vector3.down * downDispGroundCheck, boxSize);
+    }
+
+    public float FinishTime()
+    {
+        float finishTime = Time.time;
+        return finishTime;
     }
 }
 

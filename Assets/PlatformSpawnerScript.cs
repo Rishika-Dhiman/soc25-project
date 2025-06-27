@@ -7,6 +7,7 @@ using UnityEngine.XR;
 public class PlatformSpawnerScript : MonoBehaviour
 {
     public GameObject platform;
+    public GameObject flag;
     public Transform Camera;
     public float timeInterval;
     public int numberOfPlatforms;
@@ -26,11 +27,11 @@ public class PlatformSpawnerScript : MonoBehaviour
     {
         time = timeInterval;
         dir = Random.value < 0.5f ? -1 : 1;
-        GameObject mainChar = GameObject.Find("Main Character");
-        MainCharacScript mainCharscript = mainChar.GetComponent<MainCharacScript>();
-        Rigidbody2D mainRigid =mainChar.GetComponent<Rigidbody2D>();
-        jumpForcey=mainCharscript.jumpForcey;
-        jumpForcex=mainCharscript.jumpForcex;
+        GameObject player = GameObject.Find("Player");
+        MainCharacScript playerScript = player.GetComponent<MainCharacScript>();
+        Rigidbody2D mainRigid = player.GetComponent<Rigidbody2D>();
+        jumpForcey= playerScript.jumpForcey;
+        jumpForcex= playerScript.jumpForcex;
         g = mainRigid.gravityScale*10;
         R = 2 * jumpForcey * jumpForcex /g;
         H=jumpForcey * jumpForcey /(2*g);
@@ -56,8 +57,11 @@ public class PlatformSpawnerScript : MonoBehaviour
             transform.position = new Vector3(transform.position.x, Camera.position.y - 5, transform.position.z);
 
             Instantiate(platform, Vector3.right * xPos + Vector3.up * yPos, transform.rotation);
-            
 
+            if (n==numberOfPlatforms)
+            {
+                Instantiate(flag, Vector3.right * (xPos+0.3f) + Vector3.up * (yPos + 0.7f), transform.rotation);
+            }
             dir = Random.value < 0.5f ? -1 : 1;
 
             float y = Random.Range(1.55f, H - delta);
@@ -106,4 +110,5 @@ public class PlatformSpawnerScript : MonoBehaviour
         
         time += Time.deltaTime;
     }
+    
 }
