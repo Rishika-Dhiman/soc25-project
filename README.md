@@ -7,3 +7,6 @@ This repository contains a simple platform climbing game made using Unity.
 3. Understanding components: Sprite Renderer, Rigidbody 2D, Box Collider 2D etc.
 4. Writing an object's script in C#
 5. Making pixel arts for characters and other components
+6. Using UI buttons
+7. Connecting scenes
+8. Using a game object as trigger
