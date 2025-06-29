@@ -1928,7 +1928,7 @@ MonoBehaviour:
   flag: {fileID: 327564445269068433, guid: efacf61321380ad489dff0ed54301791, type: 3}
   Camera: {fileID: 519420032}
   timeInterval: 0.5
-  numberOfPlatforms: 20
+  numberOfPlatforms: 40
   leftLimit: -9
   rightLimit: 9
   delta: 0.3
