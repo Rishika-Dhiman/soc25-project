@@ -3,17 +3,21 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.XR;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class PlatformSpawnerScript : MonoBehaviour
 {
     public GameObject platform;
     public GameObject flag;
     public Transform Camera;
+    public GameObject startButton;
     public float timeInterval;
     public int numberOfPlatforms;
     public float leftLimit, rightLimit;
     public float delta;
     public float heightOfFirstPlatform;
+    public bool start;
     float time = 0;
     float xPos = 0;
     float yPos = -5;
@@ -25,6 +29,7 @@ public class PlatformSpawnerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        startButton.SetActive(PhotonNetwork.IsMasterClient);
         time = timeInterval;
         dir = Random.value < 0.5f ? -1 : 1;
         GameObject player = GameObject.Find("Player");
@@ -51,7 +56,7 @@ public class PlatformSpawnerScript : MonoBehaviour
         float hChange = (R / 2) - (l / 2);
         
 
-        if (time >= timeInterval && n < numberOfPlatforms )
+        if (time >= timeInterval && n < numberOfPlatforms && start)
         {
             n++;
             transform.position = new Vector3(transform.position.x, Camera.position.y - 5, transform.position.z);
@@ -110,5 +115,9 @@ public class PlatformSpawnerScript : MonoBehaviour
         
         time += Time.deltaTime;
     }
-    
+    public void StartGame()
+    {
+        start = true;
+        startButton.SetActive(false);
+    }
 }

@@ -13,12 +13,4 @@ public class StartScreenScript : MonoBehaviour
     {
         
     }
-    public void startGame()
-    {
-        SceneManager.LoadScene("SampleScene");
-    }
-    public void selectSkin(int n)
-    {
-        PlayerPrefs.SetInt("SelectedSkin", n);
-    }
 }
