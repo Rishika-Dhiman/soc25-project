@@ -8,5 +8,6 @@ This repository contains a simple platform climbing game made using Unity.
 4. Writing an object's script in C#
 5. Making pixel arts for characters and other components
 6. Using UI buttons
-7. Connecting scenes
+7. Connecting scenes and enabling communication between them
 8. Using a game object as trigger
+9. Implementing logic for creating and joining room buttons in multiplayer gameplay
