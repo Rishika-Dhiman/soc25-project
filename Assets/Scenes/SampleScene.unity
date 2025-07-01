@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f7b8f0983fd3504cb964c7e6bb26657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  ground: {fileID: 1930020910}
 --- !u!1 &529416641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,6 +1854,7 @@ MonoBehaviour:
   flag: {fileID: 327564445269068433, guid: efacf61321380ad489dff0ed54301791, type: 3}
   Camera: {fileID: 519420032}
   startButton: {fileID: 2051580093}
+  ground: {fileID: 1930020910}
   timeInterval: 0.5
   numberOfPlatforms: 40
   leftLimit: -9

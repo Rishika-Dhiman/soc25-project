@@ -2659,7 +2659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71f9b8dc14cd64409744e776bf3a4b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHost: 0
   playerName: {fileID: 627217848}
   gameCode: {fileID: 1721121364}
 --- !u!4 &2113856964

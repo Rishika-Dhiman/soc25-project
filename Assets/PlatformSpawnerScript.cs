@@ -12,6 +12,7 @@ public class PlatformSpawnerScript : MonoBehaviour
     public GameObject flag;
     public Transform Camera;
     public GameObject startButton;
+    
     public float timeInterval;
     public int numberOfPlatforms;
     public float leftLimit, rightLimit;
@@ -29,26 +30,31 @@ public class PlatformSpawnerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Invoke("Values", 1);
+       
+    }
+
+    void Values()
+    {
         startButton.SetActive(PhotonNetwork.IsMasterClient);
         time = timeInterval;
         dir = Random.value < 0.5f ? -1 : 1;
-        GameObject player = GameObject.Find("Player");
-        MainCharacScript playerScript = player.GetComponent<MainCharacScript>();
-        Rigidbody2D mainRigid = player.GetComponent<Rigidbody2D>();
-        jumpForcey= playerScript.jumpForcey;
-        jumpForcex= playerScript.jumpForcex;
-        g = mainRigid.gravityScale*10;
-        R = 2 * jumpForcey * jumpForcex /g;
-        H=jumpForcey * jumpForcey /(2*g);
+        GameObject localPlayer = GroundScript.localPlayer;
+        MainCharacScript playerScript = localPlayer.GetComponent<MainCharacScript>();
+        Rigidbody2D mainRigid = localPlayer.GetComponent<Rigidbody2D>();
+        jumpForcey = playerScript.jumpForcey;
+        jumpForcex = playerScript.jumpForcex;
+        g = mainRigid.gravityScale * 10;
+        R = 2 * jumpForcey * jumpForcex / g;
+        H = jumpForcey * jumpForcey / (2 * g);
         BoxCollider2D platformBox = platform.GetComponent<BoxCollider2D>();
         l = platformBox.size.x * platform.transform.localScale.x;
         m = platformBox.size.y * platform.transform.localScale.y / 2;
         Debug.Log($"H={H}, R={R}, g={g}, l={l}, m={m}, jumpForcey={jumpForcey}, jumpForcex={jumpForcex} ");
 
         yPos += heightOfFirstPlatform;
-       
-    }
 
+    }
     // Update is called once per frame
     void Update()
     {

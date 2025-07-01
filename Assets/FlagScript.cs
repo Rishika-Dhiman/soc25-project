@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class FlagScript : MonoBehaviour
 {
-    GameObject player;
+
+    GameObject localPlayer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player= GameObject.Find("Player");
+        localPlayer= GroundScript.localPlayer; 
     }
 
     // Update is called once per frame
@@ -18,7 +19,7 @@ public class FlagScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player")){
-            MainCharacScript playerScript = player.GetComponent<MainCharacScript>();
+            MainCharacScript playerScript = localPlayer.GetComponent<MainCharacScript>();
             playerScript.finishTime=playerScript.FinishTime();
             Destroy(gameObject);
         }
