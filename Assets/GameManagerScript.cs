@@ -22,7 +22,10 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.NickName = playerName.text;
         string roomCode = Random.Range(1000, 9999).ToString();
+        PlayerPrefs.SetString("RoomCode", roomCode);
+        PlayerPrefs.Save();
         PhotonNetwork.CreateRoom(roomCode);
+        Debug.Log($"Room Code : {roomCode}");
     }
 
     public void JoinRoom()

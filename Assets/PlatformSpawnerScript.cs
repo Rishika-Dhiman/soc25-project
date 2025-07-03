@@ -5,6 +5,7 @@ using UnityEngine.Timeline;
 using UnityEngine.XR;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 public class PlatformSpawnerScript : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class PlatformSpawnerScript : MonoBehaviour
     public GameObject flag;
     public Transform Camera;
     public GameObject startButton;
-    
+    public GameObject Code;
     public float timeInterval;
     public int numberOfPlatforms;
     public float leftLimit, rightLimit;
@@ -30,13 +31,20 @@ public class PlatformSpawnerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            startButton.SetActive(true);
+            Code.SetActive(true);
+            string roomCode = PlayerPrefs.GetString("RoomCode", "----");
+            Code.GetComponent<TextMeshProUGUI>().text = "Room Code :" + roomCode;
+            Debug.Log($"Room Code : {roomCode}");
+        }
         Invoke("Values", 1);
        
     }
 
     void Values()
     {
-        startButton.SetActive(PhotonNetwork.IsMasterClient);
         time = timeInterval;
         dir = Random.value < 0.5f ? -1 : 1;
         GameObject localPlayer = GroundScript.localPlayer;
@@ -125,5 +133,6 @@ public class PlatformSpawnerScript : MonoBehaviour
     {
         start = true;
         startButton.SetActive(false);
+        Code.SetActive(false);
     }
 }

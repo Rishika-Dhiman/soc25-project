@@ -337,8 +337,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 653164767}
-        m_TargetAssemblyTypeName: StartScreenScript, Assembly-CSharp
+      - m_Target: {fileID: 2113856963}
+        m_TargetAssemblyTypeName: GameManagerScript, Assembly-CSharp
         m_MethodName: selectSkin
         m_Mode: 3
         m_Arguments:
@@ -1100,8 +1100,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 653164767}
-        m_TargetAssemblyTypeName: StartScreenScript, Assembly-CSharp
+      - m_Target: {fileID: 2113856963}
+        m_TargetAssemblyTypeName: GameManagerScript, Assembly-CSharp
         m_MethodName: selectSkin
         m_Mode: 3
         m_Arguments:
