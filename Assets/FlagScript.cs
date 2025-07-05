@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using Photon.Pun;
 
 public class FlagScript : MonoBehaviour
 {
@@ -19,8 +20,11 @@ public class FlagScript : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player")){
-            MainCharacScript playerScript = localPlayer.GetComponent<MainCharacScript>();
+            MainCharacScript playerScript = other.GetComponent<MainCharacScript>();
             playerScript.finishTime=playerScript.FinishTime();
+            Debug.Log($"Finish time ");
+            Staticfile.winnerName = playerScript.nickname;
+            PhotonNetwork.LoadLevel("EndScene");
             Destroy(gameObject);
         }
     }

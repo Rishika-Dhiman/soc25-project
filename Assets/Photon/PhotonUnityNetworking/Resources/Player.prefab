@@ -256,6 +256,7 @@ MonoBehaviour:
   boxSize: {x: 0.04, y: 0.05}
   downDispGroundCheck: 0.24
   finishTime: 0
+  nickname: 
 --- !u!114 &8188662263946765811
 MonoBehaviour:
   m_ObjectHideFlags: 0

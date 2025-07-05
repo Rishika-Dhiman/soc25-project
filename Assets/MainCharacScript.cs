@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,9 +23,12 @@ public class MainCharacScript : MonoBehaviour
     public float finishTime;
     float startTime;
 
+    public string nickname;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        nickname = PhotonNetwork.NickName;
         int selectedSkin = PlayerPrefs.GetInt("SelectedSkin",0);
         if(selectedSkin == 2)
         {
