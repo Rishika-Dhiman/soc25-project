@@ -2,7 +2,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MainCharacScript : MonoBehaviourPun
+public class MainCharacScript : MonoBehaviourPun, IPunObservable
 {
     public Rigidbody2D myRigidBody;
     public SpriteRenderer mySpriteRenderer;
@@ -25,6 +25,9 @@ public class MainCharacScript : MonoBehaviourPun
 
     public string nickname;
 
+    private Vector2 networkPosition;
+    private Vector2 networkVelocity;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -41,6 +44,32 @@ public class MainCharacScript : MonoBehaviourPun
         }
         PlayerPrefs.DeleteAll();
         startTime = Time.time;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // Send position & velocity
+            stream.SendNext(myRigidBody.position);
+            stream.SendNext(myRigidBody.linearVelocity);
+        }
+        else
+        {
+            // Receive position & velocity
+            networkPosition = (Vector2)stream.ReceiveNext();
+            networkVelocity = (Vector2)stream.ReceiveNext();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (!photonView.IsMine)
+        {
+            // Smoothly move remote players to synced position
+            myRigidBody.position = Vector2.Lerp(myRigidBody.position, networkPosition, 0.5f);
+            myRigidBody.linearVelocity = networkVelocity;
+        }
     }
 
     // Update is called once per frame
@@ -89,5 +118,7 @@ public class MainCharacScript : MonoBehaviourPun
         float finishTime = Time.time-startTime;
         return finishTime;
     }
+
+    
 }
 

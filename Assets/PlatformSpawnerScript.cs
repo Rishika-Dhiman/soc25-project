@@ -74,16 +74,16 @@ public class PlatformSpawnerScript : MonoBehaviour
         float hChange = (R / 2) - (l / 2);
         
 
-        if (time >= timeInterval && n < numberOfPlatforms && start)
+        if (time >= timeInterval && n < numberOfPlatforms && start && PhotonNetwork.IsMasterClient)
         {
             n++;
             transform.position = new Vector3(transform.position.x, Camera.position.y - 5, transform.position.z);
 
-            Instantiate(platform, Vector3.right * xPos + Vector3.up * yPos, transform.rotation);
+            PhotonNetwork.Instantiate(platform.name, Vector3.right * xPos + Vector3.up * yPos, transform.rotation);
 
             if (n==numberOfPlatforms)
             {
-                Instantiate(flag, Vector3.right * (xPos+0.3f) + Vector3.up * (yPos + 0.7f), transform.rotation);
+                PhotonNetwork.Instantiate(flag.name, Vector3.right * (xPos+0.3f) + Vector3.up * (yPos + 0.7f), transform.rotation);
             }
             dir = Random.value < 0.5f ? -1 : 1;
 
