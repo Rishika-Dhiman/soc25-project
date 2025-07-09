@@ -13,7 +13,10 @@ public class GroundScript : MonoBehaviourPunCallbacks
         Instantiate(ground, transform.position + Vector3.right*2,transform.rotation);
 
         Vector3 spawnPos = new Vector3(Random.Range(-2f, 2f), -1f, 0f);
-        localPlayer = PhotonNetwork.Instantiate(player.name, spawnPos, Quaternion.identity);
+
+        int skinIndex = PlayerPrefs.GetInt("SelectedSkin", 0);
+        object[] instantiationData = new object[] {skinIndex};
+        localPlayer = PhotonNetwork.Instantiate(player.name, spawnPos, Quaternion.identity,0,instantiationData);
     }
 
     // Update is called once per frame

@@ -1,5 +1,5 @@
 using Unity.VisualScripting;
-using UnityEditor.Rendering;
+
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.XR;
@@ -27,10 +27,14 @@ public class PlatformSpawnerScript : MonoBehaviour
     float jumpForcey, jumpForcex, g, R, H, l, m;
     int n = 0;
 
+    PhotonView photonView;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        photonView = GetComponent<PhotonView>();
+        startButton.SetActive(false);
         if (PhotonNetwork.IsMasterClient)
         {
             startButton.SetActive(true);
@@ -129,10 +133,18 @@ public class PlatformSpawnerScript : MonoBehaviour
         
         time += Time.deltaTime;
     }
-    public void StartGame()
+
+    
+    [PunRPC]
+    public void StartGameRPC()
     {
+        
         start = true;
         startButton.SetActive(false);
         Code.SetActive(false);
+    }
+    public void StartGame()
+    {
+        photonView.RPC("StartGameRPC",RpcTarget.All);
     }
 }

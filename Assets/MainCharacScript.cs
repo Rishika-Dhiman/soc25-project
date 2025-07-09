@@ -2,7 +2,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MainCharacScript : MonoBehaviour
+public class MainCharacScript : MonoBehaviourPun
 {
     public Rigidbody2D myRigidBody;
     public SpriteRenderer mySpriteRenderer;
@@ -29,7 +29,8 @@ public class MainCharacScript : MonoBehaviour
     void Start()
     {
         nickname = PhotonNetwork.NickName;
-        int selectedSkin = PlayerPrefs.GetInt("SelectedSkin",0);
+        //int selectedSkin = PlayerPrefs.GetInt("SelectedSkin",0);
+        int selectedSkin = (int)photonView.InstantiationData[0];
         if(selectedSkin == 2)
         {
             mySpriteRenderer.sprite = skin2;
@@ -45,6 +46,7 @@ public class MainCharacScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine) return;
         float horizontal = 0f;
         isGrounded = Physics2D.OverlapBox(groundCheckLeft.position+Vector3.down*downDispGroundCheck, boxSize, 0f, groundLayer) || Physics2D.OverlapBox(groundCheckRight.position + Vector3.down * downDispGroundCheck, boxSize, 0f, groundLayer);
 
