@@ -21,8 +21,8 @@ public class FlagScript : MonoBehaviour
     [PunRPC]
     public void SetWinnerRPC(string winnerName)
     {
-       Staticfile.winnerName = winnerName;
-        //PhotonNetwork.LoadLevel("EndScene");
+        Staticfile.winnerName = winnerName;
+        PhotonNetwork.LoadLevel("EndScene");
         
     }
     private void OnTriggerEnter2D(Collider2D other)

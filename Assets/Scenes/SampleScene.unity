@@ -1994,7 +1994,7 @@ MonoBehaviour:
   startButton: {fileID: 2051580093}
   Code: {fileID: 834348702}
   timeInterval: 0.5
-  numberOfPlatforms: 5
+  numberOfPlatforms: 30
   leftLimit: -9
   rightLimit: 9
   delta: 0.3
