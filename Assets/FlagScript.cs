@@ -1,20 +1,28 @@
+using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
-using Photon.Pun;
 
 public class FlagScript : MonoBehaviour
 {
+    PhotonView photonView;
 
-    GameObject localPlayer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        localPlayer= GroundScript.localPlayer; 
+        photonView = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    [PunRPC]
+    public void SetWinnerRPC(string winnerName)
+    {
+       Staticfile.winnerName = winnerName;
+        //PhotonNetwork.LoadLevel("EndScene");
         
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -23,9 +31,14 @@ public class FlagScript : MonoBehaviour
             MainCharacScript playerScript = other.GetComponent<MainCharacScript>();
             playerScript.finishTime=playerScript.FinishTime();
             Debug.Log($"Finish time ");
-            Staticfile.winnerName = playerScript.nickname;
-            PhotonNetwork.LoadLevel("EndScene");
-            Destroy(gameObject);
+            PhotonView view = other.GetComponent<PhotonView>();
+            string winnerName = view.Owner.NickName;
+            photonView.RPC("SetWinnerRPC", RpcTarget.All,winnerName);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.LoadLevel("EndScene");
+                PhotonNetwork.Destroy(gameObject);
+            }
         }
     }
 }

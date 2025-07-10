@@ -13,8 +13,8 @@ public class MainCharacScript : MonoBehaviourPun, IPunObservable
     public float jumpForcex;
 
     public Transform groundCheckLeft;
-    public Transform groundCheckRight;  
-    public float checkRadius=0.4f;
+    public Transform groundCheckRight;
+    public float checkRadius = 0.4f;
     public LayerMask groundLayer;
     public Vector2 boxSize = new Vector2(0.4f, 0.05f);
     public float downDispGroundCheck;
@@ -28,20 +28,20 @@ public class MainCharacScript : MonoBehaviourPun, IPunObservable
     private Vector2 networkPosition;
     private Vector2 networkVelocity;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         nickname = PhotonNetwork.NickName;
-        //int selectedSkin = PlayerPrefs.GetInt("SelectedSkin",0);
+
         int selectedSkin = (int)photonView.InstantiationData[0];
-        if(selectedSkin == 2)
+        if (selectedSkin == 2)
         {
             mySpriteRenderer.sprite = skin2;
         }
-        else if(selectedSkin == 3)
+        else if (selectedSkin == 3)
         {
             mySpriteRenderer.sprite = skin3;
         }
+
         PlayerPrefs.DeleteAll();
         startTime = Time.time;
     }
@@ -50,13 +50,11 @@ public class MainCharacScript : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            // Send position & velocity
             stream.SendNext(myRigidBody.position);
             stream.SendNext(myRigidBody.linearVelocity);
         }
         else
         {
-            // Receive position & velocity
             networkPosition = (Vector2)stream.ReceiveNext();
             networkVelocity = (Vector2)stream.ReceiveNext();
         }
@@ -66,46 +64,50 @@ public class MainCharacScript : MonoBehaviourPun, IPunObservable
     {
         if (!photonView.IsMine)
         {
-            // Smoothly move remote players to synced position
-            myRigidBody.position = Vector2.Lerp(myRigidBody.position, networkPosition, 0.5f);
-            myRigidBody.linearVelocity = networkVelocity;
+            myRigidBody.position = Vector2.Lerp(myRigidBody.position, networkPosition, 0.2f);
+            myRigidBody.linearVelocity = Vector2.Lerp(myRigidBody.linearVelocity, networkVelocity, 0.1f);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!photonView.IsMine) return;
+
         float horizontal = 0f;
-        isGrounded = Physics2D.OverlapBox(groundCheckLeft.position+Vector3.down*downDispGroundCheck, boxSize, 0f, groundLayer) || Physics2D.OverlapBox(groundCheckRight.position + Vector3.down * downDispGroundCheck, boxSize, 0f, groundLayer);
+
+        isGrounded =
+            Physics2D.OverlapBox(groundCheckLeft.position + Vector3.down * downDispGroundCheck, boxSize, 0f, groundLayer)
+            || Physics2D.OverlapBox(groundCheckRight.position + Vector3.down * downDispGroundCheck, boxSize, 0f, groundLayer);
 
         if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded)
         {
-            float dir = (transform.localScale.x)/Mathf.Abs(transform.localScale.x);
-            myRigidBody.linearVelocity=new Vector2(runSpeed*dir,jumpForcey);
+            float dir = transform.localScale.x / Mathf.Abs(transform.localScale.x);
+            myRigidBody.linearVelocity = new Vector2(runSpeed * dir, jumpForcey);
         }
-        else if (myRigidBody.linearVelocityY <= 0 && isGrounded)
+        else if (myRigidBody.linearVelocity.y <= 0 && isGrounded)
         {
             myRigidBody.linearVelocity = Vector2.zero;
         }
+
         if ((Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) && isGrounded)
         {
             Vector3 scale = transform.localScale;
             scale.x = -Mathf.Abs(scale.x);
             transform.localScale = scale;
             horizontal = -1f;
-            myRigidBody.linearVelocity = new Vector2(horizontal * runSpeed, myRigidBody.linearVelocityY);
+            myRigidBody.linearVelocity = new Vector2(horizontal * runSpeed, myRigidBody.linearVelocity.y);
         }
-       
+
         if ((Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) && isGrounded)
         {
             Vector3 scale = transform.localScale;
             scale.x = Mathf.Abs(scale.x);
             transform.localScale = scale;
             horizontal = 1f;
-            myRigidBody.linearVelocity = new Vector2(horizontal * runSpeed, myRigidBody.linearVelocityY);
-        } 
+            myRigidBody.linearVelocity = new Vector2(horizontal * runSpeed, myRigidBody.linearVelocity.y);
+        }
     }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -115,10 +117,6 @@ public class MainCharacScript : MonoBehaviourPun, IPunObservable
 
     public float FinishTime()
     {
-        float finishTime = Time.time-startTime;
-        return finishTime;
+        return Time.time - startTime;
     }
-
-    
 }
-
