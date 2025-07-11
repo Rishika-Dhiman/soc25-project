@@ -6,17 +6,26 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
 {
     
     public TMPro.TMP_InputField playerName, gameCode;
+    public GameObject createRoom;
+    public GameObject joinRoom;
+    bool active = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //PhotonNetwork.AutomaticallySyncScene = true;
+        createRoom.SetActive(false);
+        joinRoom.SetActive(false);
         PhotonNetwork.ConnectUsingSettings();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!active && PhotonNetwork.IsConnectedAndReady )
+        {
+            createRoom.SetActive(true);
+            joinRoom.SetActive(true);
+            active = true;
+        }
     }
     
     public void CreateRoom()

@@ -37,7 +37,7 @@ public class PlatformSpawnerScript : MonoBehaviour
         startButton.SetActive(false);
         if (PhotonNetwork.IsMasterClient)
         {
-            startButton.SetActive(true);
+            
             Code.SetActive(true);
             string roomCode = PlayerPrefs.GetString("RoomCode", "----");
             Code.GetComponent<TextMeshProUGUI>().text = "Room Code :" + roomCode;
@@ -65,7 +65,7 @@ public class PlatformSpawnerScript : MonoBehaviour
         Debug.Log($"H={H}, R={R}, g={g}, l={l}, m={m}, jumpForcey={jumpForcey}, jumpForcex={jumpForcex} ");
 
         yPos += heightOfFirstPlatform;
-
+        startButton.SetActive(PhotonNetwork.IsMasterClient);
     }
     // Update is called once per frame
     void Update()

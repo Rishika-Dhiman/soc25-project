@@ -2661,6 +2661,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: {fileID: 627217848}
   gameCode: {fileID: 1721121364}
+  createRoom: {fileID: 1398650522}
+  joinRoom: {fileID: 133531187}
 --- !u!4 &2113856964
 Transform:
   m_ObjectHideFlags: 0
