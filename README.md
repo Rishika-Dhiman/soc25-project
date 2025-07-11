@@ -12,3 +12,7 @@ This repository contains a simple platform climbing game made using Unity.
 8. Using a game object as trigger
 9. Implementing logic for creating and joining room buttons in multiplayer gameplay using Photon PUN
 10. Storing data across scenes using static class
+11. Using Instantion data to share data like slected skin among players
+12. Using Remote Procedure Call (RPC) to run a funciton across all players 
+13. Syncing player movements and positions using IPunObservable to send and receive data across players
+ 
