@@ -244,7 +244,7 @@ MonoBehaviour:
   mySpriteRenderer: {fileID: 5487756700091822127}
   skin2: {fileID: -3159765797264061000, guid: 7dac752f20c62474183cc93c360e0129, type: 3}
   skin3: {fileID: -3708878818719184633, guid: c9a90dcab5e3f234cb9adb8dcf700ffa, type: 3}
-  runSpeed: 7
+  runSpeed: 5
   jumpForcey: 10
   jumpForcex: 6
   groundCheckLeft: {fileID: 2334841201383371441}

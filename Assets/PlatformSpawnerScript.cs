@@ -55,7 +55,7 @@ public class PlatformSpawnerScript : MonoBehaviour
         MainCharacScript playerScript = localPlayer.GetComponent<MainCharacScript>();
         Rigidbody2D mainRigid = localPlayer.GetComponent<Rigidbody2D>();
         jumpForcey = playerScript.jumpForcey;
-        jumpForcex = playerScript.jumpForcex;
+        jumpForcex = playerScript.runSpeed;
         g = mainRigid.gravityScale * 10;
         R = 2 * jumpForcey * jumpForcex / g;
         H = jumpForcey * jumpForcey / (2 * g);
@@ -63,7 +63,7 @@ public class PlatformSpawnerScript : MonoBehaviour
         l = platformBox.size.x * platform.transform.localScale.x;
         m = platformBox.size.y * platform.transform.localScale.y / 2;
         Debug.Log($"H={H}, R={R}, g={g}, l={l}, m={m}, jumpForcey={jumpForcey}, jumpForcex={jumpForcex} ");
-
+        
         yPos += heightOfFirstPlatform;
         startButton.SetActive(PhotonNetwork.IsMasterClient);
     }
