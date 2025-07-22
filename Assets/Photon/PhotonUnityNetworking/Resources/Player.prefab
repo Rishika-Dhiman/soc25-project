@@ -246,7 +246,6 @@ MonoBehaviour:
   skin3: {fileID: -3708878818719184633, guid: c9a90dcab5e3f234cb9adb8dcf700ffa, type: 3}
   runSpeed: 5
   jumpForcey: 10
-  jumpForcex: 6
   groundCheckLeft: {fileID: 2334841201383371441}
   groundCheckRight: {fileID: 4005071764247761077}
   checkRadius: 0.32

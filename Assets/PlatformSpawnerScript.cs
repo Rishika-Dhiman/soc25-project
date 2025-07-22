@@ -24,8 +24,9 @@ public class PlatformSpawnerScript : MonoBehaviour
     float xPos = 0;
     float yPos = -5;
     int dir;
-    float jumpForcey, jumpForcex, g, R, H, l, m;
+    float jumpForcey, jumpForcex, g, R, H, l, m, a, b, y;
     int n = 0;
+   
 
     PhotonView photonView;
 
@@ -54,22 +55,28 @@ public class PlatformSpawnerScript : MonoBehaviour
         GameObject localPlayer = GroundScript.localPlayer;
         MainCharacScript playerScript = localPlayer.GetComponent<MainCharacScript>();
         Rigidbody2D mainRigid = localPlayer.GetComponent<Rigidbody2D>();
+        BoxCollider2D mainCollider = localPlayer.GetComponent<BoxCollider2D>();
         jumpForcey = playerScript.jumpForcey;
         jumpForcex = playerScript.runSpeed;
+        a = localPlayer.transform.localScale.x*mainCollider.size.x;
+        b = localPlayer.transform.localScale.y*mainCollider.size.y;
         g = mainRigid.gravityScale * 10;
         R = 2 * jumpForcey * jumpForcex / g;
         H = jumpForcey * jumpForcey / (2 * g);
         BoxCollider2D platformBox = platform.GetComponent<BoxCollider2D>();
         l = platformBox.size.x * platform.transform.localScale.x;
         m = platformBox.size.y * platform.transform.localScale.y / 2;
-        Debug.Log($"H={H}, R={R}, g={g}, l={l}, m={m}, jumpForcey={jumpForcey}, jumpForcex={jumpForcex} ");
+        Debug.Log($"H={H}, R={R}, g={g}, l={l}, m={m}, jumpForcey={jumpForcey}, jumpForcex={jumpForcex}, b-{b}, a={a}, delta={delta} ");
         
         yPos += heightOfFirstPlatform;
         startButton.SetActive(PhotonNetwork.IsMasterClient);
+
+        y = H;
     }
     // Update is called once per frame
     void Update()
     {
+        
         float newxPos=0, newyPos=0, xRangeLeft, xRangeRight;
         float hChange = (R / 2) - (l / 2);
         
@@ -87,18 +94,12 @@ public class PlatformSpawnerScript : MonoBehaviour
             }
             dir = Random.value < 0.5f ? -1 : 1;
 
-            float y = Random.Range(1.55f, H - delta);
-            
-            if (y < (R / 2) - (l / 2))
-            {
-                xRangeLeft = ((R + Mathf.Sqrt((R * R) - (4 * R * y * jumpForcex) / jumpForcey)) / 2) -l/2;
-                xRangeRight = xRangeLeft + 3 * l / 2;
-            }
-            else
-            {
-                xRangeLeft = ((R - Mathf.Sqrt((R * R) - (4 * R * y * jumpForcex) / jumpForcey)) / 2) + l;
-                xRangeRight = ((R + Mathf.Sqrt((R * R) - (4 * R * y * jumpForcex) / jumpForcey)) / 2) + l;
-            }
+            y = Random.Range(H - y + b + 2*m + 2*delta, H);
+
+            xRangeLeft =  a;
+            xRangeRight = ((R + Mathf.Sqrt((R * R) - (4 * R * y * jumpForcex) / jumpForcey)) / 2) + l;
+
+
             if (xRangeLeft + xPos >= rightLimit)
             {
                 float temp = xRangeLeft;
@@ -110,7 +111,7 @@ public class PlatformSpawnerScript : MonoBehaviour
                 xRangeLeft += xPos;
                 xRangeRight += xPos;
             }
-            else if(dir == 1)
+            else if (dir == 1)
             {
                 xRangeLeft += xPos;
                 xRangeRight = xRangeRight + xPos < rightLimit ? xRangeRight + xPos : rightLimit;
@@ -122,7 +123,7 @@ public class PlatformSpawnerScript : MonoBehaviour
                 xRangeRight = xPos - temp;
             }
             newxPos = Random.Range(xRangeLeft, xRangeRight);
-            newyPos = yPos + y;
+            newyPos = yPos + y - delta;
 
             Debug.Log($"Spawning platform at x={xPos}, y={yPos}, yPos={yPos}, H={H}, y={y}, xrangeLeft={xRangeLeft}, xrangeRight={xRangeRight}, m={m}, ");
             

@@ -20,14 +20,21 @@ public class GameManagerScript : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if (!active && PhotonNetwork.IsConnectedAndReady )
-        {
-            createRoom.SetActive(true);
-            joinRoom.SetActive(true);
-            active = true;
-        }
+        
+        //if (!active && PhotonNetwork.IsConnectedAndReady)
+        //{
+            
+        //    createRoom.SetActive(true);
+        //    joinRoom.SetActive(true);
+        //    active = true;
+        //}
     }
-    
+    public override void OnConnectedToMaster()
+    {
+        createRoom.SetActive(true);
+        joinRoom.SetActive(true);
+    }
+
     public void CreateRoom()
     {
         PhotonNetwork.NickName = playerName.text;

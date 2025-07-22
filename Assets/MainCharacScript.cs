@@ -10,7 +10,6 @@ public class MainCharacScript : MonoBehaviourPun, IPunObservable
     public Sprite skin3;
     public float runSpeed;
     public float jumpForcey;
-    public float jumpForcex;
 
     public Transform groundCheckLeft;
     public Transform groundCheckRight;
