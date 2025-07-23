@@ -26,7 +26,8 @@ public class PlatformSpawnerScript : MonoBehaviour
     int dir;
     float jumpForcey, jumpForcex, g, R, H, l, m, a, b, y;
     int n = 0;
-   
+    public TMPro.TMP_InputField numberOfPlatformsInput;
+
 
     PhotonView photonView;
 
@@ -36,10 +37,13 @@ public class PlatformSpawnerScript : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         startButton.SetActive(false);
+        numberOfPlatformsInput.gameObject.SetActive(false);
+        numberOfPlatforms = 30;
         if (PhotonNetwork.IsMasterClient)
         {
             
             Code.SetActive(true);
+            numberOfPlatformsInput.gameObject.SetActive(true);
             string roomCode = PlayerPrefs.GetString("RoomCode", "----");
             Code.GetComponent<TextMeshProUGUI>().text = "Room Code :" + roomCode;
             Debug.Log($"Room Code : {roomCode}");
@@ -70,7 +74,8 @@ public class PlatformSpawnerScript : MonoBehaviour
         
         yPos += heightOfFirstPlatform;
         startButton.SetActive(PhotonNetwork.IsMasterClient);
-
+        leftLimit += 1;
+        rightLimit -= 1;
         y = H;
     }
     // Update is called once per frame
@@ -78,7 +83,6 @@ public class PlatformSpawnerScript : MonoBehaviour
     {
         
         float newxPos=0, newyPos=0, xRangeLeft, xRangeRight;
-        float hChange = (R / 2) - (l / 2);
         
 
         if (time >= timeInterval && n < numberOfPlatforms && start && PhotonNetwork.IsMasterClient)
@@ -100,13 +104,13 @@ public class PlatformSpawnerScript : MonoBehaviour
             xRangeRight = ((R + Mathf.Sqrt((R * R) - (4 * R * y * jumpForcex) / jumpForcey)) / 2) + l;
 
 
-            if (xRangeLeft + xPos >= rightLimit)
+            if (xRangeLeft + xPos >= rightLimit - l/2)
             {
                 float temp = xRangeLeft;
                 xRangeLeft = xPos - xRangeRight;
                 xRangeRight = xPos - temp;
             }
-            else if (xPos - xRangeLeft <= leftLimit)
+            else if (xPos - xRangeLeft <= leftLimit + l/2)
             {
                 xRangeLeft += xPos;
                 xRangeRight += xPos;
@@ -114,12 +118,12 @@ public class PlatformSpawnerScript : MonoBehaviour
             else if (dir == 1)
             {
                 xRangeLeft += xPos;
-                xRangeRight = xRangeRight + xPos < rightLimit ? xRangeRight + xPos : rightLimit;
+                xRangeRight = xRangeRight + xPos < rightLimit ? xRangeRight + xPos : rightLimit - l/2;
             }
             else if (dir == -1)
             {
                 float temp = xRangeLeft;
-                xRangeLeft = xPos - xRangeRight > leftLimit ? xPos - xRangeRight : leftLimit;
+                xRangeLeft = xPos - xRangeRight > leftLimit ? xPos - xRangeRight : leftLimit + l/2;
                 xRangeRight = xPos - temp;
             }
             newxPos = Random.Range(xRangeLeft, xRangeRight);
@@ -139,9 +143,13 @@ public class PlatformSpawnerScript : MonoBehaviour
     [PunRPC]
     public void StartGameRPC()
     {
-        
+        if(numberOfPlatformsInput.text!="" && numberOfPlatformsInput.text!="0")
+        {
+            numberOfPlatforms = int.Parse(numberOfPlatformsInput.text);
+        }
         start = true;
         startButton.SetActive(false);
+        numberOfPlatformsInput.gameObject.SetActive(false);
         Code.SetActive(false);
     }
     public void StartGame()

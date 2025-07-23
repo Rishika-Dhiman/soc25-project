@@ -114,6 +114,14 @@ public class MainCharacScript : MonoBehaviourPun, IPunObservable
         {
             myRigidBody.linearVelocity = new Vector2(myRigidBody.linearVelocityX + 0.01f, myRigidBody.linearVelocityY);
         }
+        if (transform.position.x > 9 && myRigidBody.linearVelocityX > 0 )
+        {
+            myRigidBody.linearVelocity = new Vector2(-myRigidBody.linearVelocityX, myRigidBody.linearVelocityY);
+        }
+        if (transform.position.x < -9 &&  myRigidBody.linearVelocityX < 0)
+        {
+            myRigidBody.linearVelocity = new Vector2(-myRigidBody.linearVelocityX, myRigidBody.linearVelocityY);
+        }
     }
 
     void OnDrawGizmos()
