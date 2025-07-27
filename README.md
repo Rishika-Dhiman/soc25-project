@@ -1,6 +1,6 @@
 # soc25-project
 ### Introduction
-This repository contains a simple platform climbing game made using Unity.
+This repository contains a simple multiplayer platform climbing game made using Unity.
 ### Learnings so far
 1. Fundamentals of Unity: Setting up a project, understanding the Unity Interface
 2. Adding and modifying game objects: Creating game objects, adding childrem objects and components to them
@@ -15,4 +15,3 @@ This repository contains a simple platform climbing game made using Unity.
 11. Using Instantion data to share data like slected skin among players
 12. Using Remote Procedure Call (RPC) to run a funciton across all players 
 13. Syncing player movements and positions using IPunObservable to send and receive data across players
- 

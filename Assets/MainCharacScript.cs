@@ -79,11 +79,11 @@ public class MainCharacScript : MonoBehaviourPun, IPunObservable
             || Physics2D.OverlapBox(groundCheckRight.position + Vector3.down * downDispGroundCheck, boxSize, 0f, groundLayer);
 
 
-        float dir;
+        
 
         if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded)
         {
-            dir = transform.localScale.x / Mathf.Abs(transform.localScale.x);
+            
             myRigidBody.linearVelocity = new Vector2(0, jumpForcey);
         }
         

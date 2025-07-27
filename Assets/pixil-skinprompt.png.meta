@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pixil-skinprompt_0: -1659843313710362522
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
